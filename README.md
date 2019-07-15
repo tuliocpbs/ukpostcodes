@@ -12,7 +12,7 @@
 
 `$ cd ukpostcodes`
 
-`$ sudo sysctl -w vm.max_map_count=262144` # Necessary for Elasticsearch be up
+`$ sudo sysctl -w vm.max_map_count=262144` # Necessary for Elasticsearch stay up
 
 `$ docker-compose up -d`
 
@@ -21,6 +21,8 @@
 ###### Access `API Swagger Endpoint` : <http://localhost:8080/api/docs/>
 
 ### Monitoring with Elastic APM
+
+> Wait for Kibana be up
 
 ###### Access `APM app on Kibana ` : <http://localhost:5601/app/apm>
 
