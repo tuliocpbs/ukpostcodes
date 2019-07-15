@@ -1,0 +1,58 @@
+version: '2.2'
+services:
+  post-code:
+    build: .
+    env_file:
+      - dev-envs.env
+    depends_on:
+      - elasticsearch
+    ports:
+      - 8080:8080
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - discovery.seed_hosts=elasticsearch02
+      - cluster.initial_master_nodes=elasticsearch,elasticsearch02
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+
+  elasticsearch02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+    container_name: elasticsearch02
+    environment:
+      - node.name=elasticsearch02
+      - discovery.seed_hosts=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch,elasticsearch02
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.1.1
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+
+  apm:
+    image: docker.elastic.co/apm/apm-server:7.1.1
+    ports:
+      - "8200:8200"
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./apm-server.yml:/etc/apm-server/apm-server.yml
