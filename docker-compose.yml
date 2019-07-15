@@ -3,7 +3,7 @@ services:
   post-code:
     build: .
     env_file:
-      - test.env
+      - dev-envs.env
     depends_on:
       - elasticsearch
     ports:
