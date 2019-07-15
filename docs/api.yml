@@ -1,0 +1,64 @@
+swagger: "2.0"
+info:
+  description: "This is a API for UK Postcode Validation."
+  version: "1.0.0"
+  title: "UK Postcode API"
+host: "127.0.0.1:8080"
+basePath: "/v1"
+tags:
+- name: "UK Postcode"
+  description: "UK Postcode Validation"
+schemes:
+- "http"
+paths:
+  /postcode:
+    get:
+      tags:
+      - "UK Postcode"
+      summary: "Validate UK Postcode"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "postcode"
+        in: "query"
+        description: "Postcode for validation"
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SuccessfulResponse"
+        400:
+          description: "Invalid UK Postcode"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ErrorResponse"
+definitions:
+  SuccessfulResponse:
+    type: "object"
+    properties:
+      data:
+        type: "object"
+        properties:
+          postcode:
+            type: "string"
+      msg:
+        type: "string"
+    xml:
+      name: "Order"
+  ErrorResponse:
+    type: "object"
+    properties:
+      data:
+        type: "object"
+        properties:
+          error:
+            type: "string"
+      msg:
+        type: "string"
+externalDocs:
+  description: "Find out more about UK Postcode Validation"
+  url: "https://en.wikipedia.org/wiki/Postcodes_in_the_United_Kingdom"
