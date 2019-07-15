@@ -13,7 +13,7 @@ app = Flask(__name__)
 apm = ElasticAPM(app, logging=logging.ERROR)
 
 SWAGGER_URL = '/api/docs' # URL for exposing Swagger UI
-API_URL = 'http://localhost:8080/file://docs/swagger.json' 
+API_URL = '' 
 
 # Call factory function to create our blueprint
 swagger_file_dir = os.path.abspath('./docs/api.json')
