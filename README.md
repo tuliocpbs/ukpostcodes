@@ -20,8 +20,18 @@
 
 ###### Access `API Swagger Endpoint` : <http://localhost:8080/api/docs/>
 
+### Monitoring with Elastic APM
+
+###### Access `APM app on Kibana ` : <http://localhost:5601/app/apm>
+
 ### How to run the tests
 
 ###### Execute the commands bellow:
+
+`$ pyenv virtualenv 3.7.0 uk-postcode` # Create virtualenv with pyenv tool
+
+`$ pyenv activate uk-postcode` # Active virtualenv
+
+`$ pip install -r requirements/requirements-dev.txt`
 
 `$ python -m pytest postcode`
